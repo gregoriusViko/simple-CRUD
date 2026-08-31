@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 // GenericTable.vue
 
 // Definisikan tipe untuk kolom
@@ -9,8 +9,8 @@ export interface TableColumn {
   style?: string;
 }
 
-const props = withDefaults(defineProps<{
-  data: [];
+withDefaults(defineProps<{
+  data: T[];
   columns: TableColumn[];
   dataKey?: string;
   showActions?: boolean;
@@ -51,14 +51,14 @@ const emit = defineEmits(['view', 'edit', 'delete']);
       :sortable="col.sortable"
       :style="col.style"
     >
-      <template #body="{ data }">
+      <template #body="{ data: rowData }">
         <!--
           DYNAMIC SLOT: Ini adalah keajaibannya.
           Jika Parent tidak mengirimkan template khusus untuk kolom ini, tampilkan teks biasa.
           Jika mengirim, gunakan template dari Parent.
         -->
-        <slot :name="`cell-${col.field}`" :data="data">
-          {{ data[col.field] }}
+        <slot :name="`cell-${col.field}`" :data="rowData">
+          {{ rowData[col.field] }}
         </slot>
       </template>
     </Column>

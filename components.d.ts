@@ -18,11 +18,16 @@ declare module 'vue' {
     DataTable: typeof import('primevue/datatable')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Drawer: typeof import('primevue/drawer')['default']
+    GenericCard: typeof import('./src/components/GenericCard.vue')['default']
+    GenericInfo: typeof import('./src/components/GenericInfo.vue')['default']
     GenericTable: typeof import('./src/components/GenericTable.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    MainSidebar: typeof import('./src/components/MainSidebar.vue')['default']
+    Menubar: typeof import('primevue/menubar')['default']
+    NavButton: typeof import('./src/components/NavButton.vue')['default']
     Paginator: typeof import('primevue/paginator')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -32,5 +37,9 @@ declare module 'vue' {
     Table: typeof import('./src/components/Table.vue')['default']
     Tag: typeof import('primevue/tag')['default']
     Toast: typeof import('primevue/toast')['default']
+  }
+  export interface GlobalDirectives {
+    Ripple: typeof import('primevue/ripple')['default']
+    StyleClass: typeof import('primevue/styleclass')['default']
   }
 }
