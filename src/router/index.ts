@@ -13,9 +13,15 @@ const router = createRouter({
       component: MainLayout,
       children: [
         {
-          path: '/',
-          name: 'Home',
+          path: '/karyawan/daftar',
+          name: 'daftar-karyawan',
           component: () => import('../features/employees/views/EmployeesView.vue'),
+        },
+
+        {
+          path: '/coba',
+          name: 'Coba',
+          component: () => import('../features/employees/views/CobaView.vue'),
         },
       ]
     },

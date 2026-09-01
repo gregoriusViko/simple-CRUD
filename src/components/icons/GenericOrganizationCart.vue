@@ -1,3 +1,3 @@
 <template>
-  <Drawer />
+  <div></div>
 </template>
