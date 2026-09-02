@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     Components({
+      dirs: ['src/shared/components'],
       resolvers: [
         PrimeVueResolver()
       ]

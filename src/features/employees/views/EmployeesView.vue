@@ -5,7 +5,6 @@ import type { TagProps } from 'primevue/tag'
 
 import EmployeeDetailsDrawer from '../components/EmployeeDetailsDrawer.vue'
 import EmployeeFormDialog from '../components/EmployeeFormDialog.vue'
-import GenericCard from '@/components/GenericCard.vue'
 
 import { useEmployeesStore } from '../stores/useEmployeesStore'
 import type { Employee, EmployeeRole } from '../types/employee'
