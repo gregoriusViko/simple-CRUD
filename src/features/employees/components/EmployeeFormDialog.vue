@@ -5,9 +5,12 @@ import { useEmployeesStore } from '../stores/useEmployeesStore'
 import type { Employee, EmployeeInput, EmployeeRole } from '../types/employee'
 
 const props = defineProps<{
-  visible: boolean
   employee?: Employee | null
 }>()
+
+const visible = defineModel<boolean>('visible', {
+  default: false
+})
 
 const emit = defineEmits<{
   'update:visible': [value: boolean]
@@ -51,7 +54,7 @@ const genderOptions = [
 ]
 
 watch(
-  () => props.visible,
+  visible,
   (isOpen) => {
     if (!isOpen) return
 
@@ -81,7 +84,7 @@ watch(
 )
 
 function closeDialog() {
-  if (!store.saving) emit('update:visible', false)
+  if (!store.saving) visible.value = false
 }
 
 function validate() {
@@ -100,12 +103,12 @@ function validate() {
 }
 
 async function submit() {
-  if (!validate() || form.age === null) return
+  if (!validate()) return
 
   submitError.value = ''
   const payload: EmployeeInput = {
     ...form,
-    age: form.age,
+    age: form.age!,
     firstName: form.firstName.trim(),
     lastName: form.lastName.trim(),
     email: form.email.trim(),
@@ -125,7 +128,7 @@ async function submit() {
     if (!saved) throw new Error('Data karyawan tidak ditemukan.')
 
     emit('saved', saved)
-    emit('update:visible', false)
+    visible.value = false
     toast.add({
       severity: 'success',
       summary: props.employee ? 'Perubahan tersimpan' : 'Karyawan ditambahkan',

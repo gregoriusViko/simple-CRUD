@@ -43,6 +43,30 @@
           </template>
         </MenuItem>
 
+        <MenuItem label="Pengelolaan Keuangan">
+          <template #icon>
+            <i class="pi pi-money-bill"></i>
+          </template>
+
+          <template #submenu>
+            <MenuItem label="Pemasukan" to="/keuangan/pemasukan">
+              <template #icon>
+                <i class="pi pi-arrow-down-left"></i>
+              </template>
+            </MenuItem>
+            <MenuItem label="Pengeluaran" to="/keuangan/pengeluaran">
+              <template #icon>
+                <i class="pi pi-arrow-up-right"></i>
+              </template>
+            </MenuItem>
+            <MenuItem label="Laporan Keseluruhan" to="/keuangan/laporan">
+              <template #icon>
+                <i class="pi pi-chart-line"></i>
+              </template>
+            </MenuItem>
+          </template>
+        </MenuItem>
+
         <MenuItem label="Coba" to="/coba">
 
         </MenuItem>

@@ -57,6 +57,13 @@ function roleSeverity(role: Employee['role']): TagProps['severity'] {
   if (role === 'moderator') return 'warn'
   return 'secondary'
 }
+
+const exportData = computed(() => {
+  return filteredEmployees.value.map(employee => ({
+    ...employee,
+    name: employeeFullName(employee) // Menggabungkan firstName & lastName
+  }))
+})
 </script>
 
 <template>
@@ -92,6 +99,14 @@ function roleSeverity(role: Employee['role']): TagProps['severity'] {
           class="w-full sm:w-48" />
         <Select v-model="selectedRole" :options="roleOptions" option-label="label" option-value="value"
           placeholder="Semua akses" show-clear class="w-full sm:w-48" />
+        <GenericExcelExport :data="exportData" :columns="[
+          { key: 'id', header: 'ID' },
+          { key: 'name', header: 'Nama' },
+          { key: 'email', header: 'Email' },
+          { key: 'department', header: 'Departemen' },
+          { key: 'city', header: 'Lokasi' },
+          { key: 'role', header: 'Akses' }
+        ]" fileName="daftar karyawan" />
       </template>
     </GenericDataToolbar>
 

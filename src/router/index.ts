@@ -9,13 +9,29 @@ const router = createRouter({
       // name: 'employees',
       // component: () => import('../features/employees/views/EmployeesView.vue'),
 
-       path: '/',
+      path: '/',
       component: MainLayout,
       children: [
         {
-          path: '/karyawan/daftar',
+          path: 'karyawan/daftar',
           name: 'daftar-karyawan',
           component: () => import('../features/employees/views/EmployeesView.vue'),
+        },
+
+        {
+          path: '/keuangan/',
+          children: [
+            {
+              path: 'pemasukan',
+              name: 'pemasukan',
+              component: () => import('../features/cashflow/views/IncomeView.vue'),
+            },
+            // {
+            //   path: 'pengeluaran',
+            //   name: 'pengeluaran',
+            //   component: () => import('../features/cashflow/views/ExpenseView.vue'),
+            // },
+          ],
         },
 
         {
@@ -23,7 +39,7 @@ const router = createRouter({
           name: 'Coba',
           component: () => import('../features/employees/views/CobaView.vue'),
         },
-      ]
+      ],
     },
   ],
 })
