@@ -1,5 +1,6 @@
 import { ref, reactive, readonly } from 'vue'
-import type { CashflowPeriodFilter, CashflowReportResponse } from '../types/cashflow.types'
+import type { CashflowPeriodFilter } from '../types/cashflow.types'
+import type { CashflowReportResponse } from '../schemas/cashflow'
 
 // Asumsi Anda memiliki fungsi API ini di folder api/
 // import { getCashflowReport } from '../api/cashflow.api';
