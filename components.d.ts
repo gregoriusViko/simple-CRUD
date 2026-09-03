@@ -19,6 +19,8 @@ declare module 'vue' {
     DataTable: typeof import('primevue/datatable')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Drawer: typeof import('primevue/drawer')['default']
+    Form: typeof import('@primevue/forms/form')['default']
+    FormField: typeof import('@primevue/forms/formfield')['default']
     GenericCard: typeof import('./src/shared/components/GenericCard.vue')['default']
     GenericDataToolbar: typeof import('./src/shared/components/GenericDataToolbar.vue')['default']
     GenericEmptyState: typeof import('./src/shared/components/GenericEmptyState.vue')['default']

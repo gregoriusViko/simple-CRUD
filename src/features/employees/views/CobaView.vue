@@ -8,11 +8,11 @@ import type { FormSubmitEvent } from '@primevue/forms';
 // --- Schema ---
 const schema = z.object({
   email: z
-    .string()
+    .string('Email wajib diisi')
     .min(1, 'Email wajib diisi')
     .email('Format email tidak valid'),
   password: z
-    .string()
+    .string('Password wajib diisi')
     .min(1, 'Password wajib diisi')
     .min(8, 'Minimal 8 karakter'),
 });
@@ -34,7 +34,13 @@ function markTouched(field: keyof FormValues) {
 
 // --- Submit ---
 function onSubmit(event: FormSubmitEvent) {
-  if (!event.valid) return;
+  if (!event.valid){
+    touched.value = {
+      email: true,
+      password: true,
+    };
+    return;
+  }
   const values = event.values as FormValues;
   console.log('Data valid:', values);
 }
@@ -58,7 +64,6 @@ function onSubmit(event: FormSubmitEvent) {
         type="email"
         placeholder="contoh@email.com"
         class="w-full"
-        :invalid="$field.invalid"
         @blur="markTouched('email')"
       />
       <Message
@@ -79,7 +84,6 @@ function onSubmit(event: FormSubmitEvent) {
         v-bind="$field"
         placeholder="Min. 8 karakter"
         class="w-full"
-        :invalid="$field.invalid"
         :feedback="false"
         toggleMask
         @blur="markTouched('password')"
