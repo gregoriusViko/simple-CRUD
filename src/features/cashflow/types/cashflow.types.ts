@@ -10,11 +10,14 @@ export interface CashflowPeriodFilter {
 // Representasi satu baris data transaksi (Pemasukan/Pengeluaran)
 export interface Transaction {
   id: string;
+  transaction_id: string;
   type: TransactionType;
   amount: number;
-  date: string; // ISO 8601 string (contoh: '2026-09-01T10:00:00Z')
+  category: string;
   description: string;
-  category: string; // Contoh: 'Gaji', 'Makanan', 'Operasional'
+  payment_method: string;
+  timestamp: string; // ISO 8601 string
+
 }
 
 // Representasi agregasi/ringkasan data di periode tersebut

@@ -1,56 +1,36 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Form, FormField } from '@primevue/forms';
-import { zodResolver } from '@primevue/forms/resolvers/zod';
 import { z } from 'zod';
-import type { FormSubmitEvent } from '@primevue/forms';
+import { useValidateInput } from '@/shared/composables/useValidateInput';
 
-// --- Schema ---
+// --- 1. Definisikan Schema ---
 const schema = z.object({
   email: z
-    .string('Email wajib diisi')
+    .string('Email wajib diisi') // Catatan: perbaikan cara penulisan z.string()
     .min(1, 'Email wajib diisi')
     .email('Format email tidak valid'),
   password: z
-    .string('Password wajib diisi')
+    .string('Password wajib diisi') // Catatan: perbaikan cara penulisan z.string()
     .min(1, 'Password wajib diisi')
     .min(8, 'Minimal 8 karakter'),
 });
 
-type FormValues = z.infer<typeof schema>;
+// --- 2. Panggil Composable ---
+const { resolver, fieldsToValidateOnUpdate, markTouched, onSubmit } = useValidateInput(
+  schema,
+  (values) => {
+    // Fungsi ini HANYA terpanggil jika validasi berhasil (!event.valid sudah dihandle di dalam composable)
+    console.log('Data valid dan siap dikirim:', values);
 
-// --- Resolver ---
-const resolver = zodResolver(schema);
-
-// --- Touched tracking (untuk hybrid blur → real-time) ---
-const touched = ref<Record<keyof FormValues, boolean>>({
-  email: false,
-  password: false,
-});
-
-function markTouched(field: keyof FormValues) {
-  touched.value[field] = true;
-}
-
-// --- Submit ---
-function onSubmit(event: FormSubmitEvent) {
-  if (!event.valid){
-    touched.value = {
-      email: true,
-      password: true,
-    };
-    return;
+    // Contoh: await api.login(values.email, values.password);
   }
-  const values = event.values as FormValues;
-  console.log('Data valid:', values);
-}
+);
 </script>
 
 <template>
   <Form
     :resolver="resolver"
     :validateOnBlur="true"
-    :validateOnValueUpdate="(Object.keys(touched) as (keyof FormValues)[]).filter(k => touched[k])"
+    :validateOnValueUpdate="fieldsToValidateOnUpdate"
     :validateOnSubmit="true"
     @submit="onSubmit"
     class="flex flex-col gap-4 w-80"

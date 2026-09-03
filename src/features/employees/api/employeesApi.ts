@@ -4,32 +4,7 @@ import type {
   Employee,
   EmployeeInput,
 } from '../types/employee'
-
-import {ofetch} from 'ofetch'
-
-const API_URL = import.meta.env.VITE_DUMMYJSON_URL ?? 'https://dummyjson.com'
-
-export const request = ofetch.create({
-  baseURL: API_URL,
-  timeout: 12000, // ofetch menangani AbortController di balik layar
-  headers: {
-    'Content-Type': 'application/json'
-  },
-
-  // Interceptor: Menangani error jaringan atau timeout (tidak ada respons)
-  onRequestError({ error }) {
-    if (error.name === 'AbortError' || error.message.includes('timeout')) {
-      throw new Error('DummyJSON terlalu lama merespons. Silakan coba lagi.')
-    }
-    throw new Error('Tidak dapat terhubung ke DummyJSON.')
-  },
-
-  // Interceptor: Menangani HTTP Error (status 400-599)
-  onResponseError({ response }) {
-    // Otomatis menolak respons HTML yang nyasar, tidak akan crash karena JSON parsing
-    throw new Error(`Permintaan gagal dengan status ${response.status}`)
-  }
-})
+import { request } from '@/services/dummyJSON.api'
 
 function toEmployee(user: DummyJsonUser): Employee {
   return {

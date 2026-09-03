@@ -16,8 +16,7 @@
     <!-- 2. JIKA DIA ADALAH MENU DROPDOWN (Punya Submenu) -->
     <!-- Tambahkan event @click="isOpen = !isOpen" untuk mengubah status -->
     <a v-else-if="hasSubmenu" @click="isOpen = !isOpen" v-ripple
-      v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-slidedown', leaveToClass: 'hidden', leaveActiveClass: 'animate-slideup' }"
-      class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+      class="flex items-center cursor-pointer p-3 rounded-border text-surface-700 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
       <span class="mr-2">
         <slot name="icon"></slot>
       </span>
@@ -29,10 +28,13 @@
     </a>
 
     <!-- WADAH SUBMENU -->
-    <ul v-if="hasSubmenu"
-      class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
-      <slot name="submenu"></slot>
-    </ul>
+    <div v-if="hasSubmenu" class="grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      :class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'">
+      <ul v-if="hasSubmenu" class="min-h-0 overflow-hidden transition-opacity duration-300 ease-out m-0 p-0 pl-4"
+        :class="isOpen ? 'opacity-100' : 'opacity-0'">
+        <slot name="submenu"></slot>
+      </ul>
+    </div>
   </li>
 </template>
 
