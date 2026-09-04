@@ -6,18 +6,18 @@
       <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Cash Flow Trend</h2>
 
       <!-- PrimeVue DatePicker -->
-      <DatePicker
-        v-model="dateRange"
-        selectionMode="range"
-        placeholder="Jan - Apr 25"
-        showIcon
-        iconDisplay="input"
-        class="w-full sm:w-56"
-        :pt="{
+      <DatePicker v-model="dateRange" selectionMode="range" :numberOfMonths="2" placeholder="Pilih rentang tanggal"
+        showIcon iconDisplay="input" class="w-full sm:w-56" :pt="{
           root: { class: 'border-slate-200 text-sm' },
           input: { class: 'py-2 px-3 shadow-none text-slate-600' }
-        }"
-      />
+        }">
+        <template #footer>
+          <div class="flex justify-end gap-2 p-3 border-t">
+            <Button label="Cancel" severity="secondary" text @click="handleCancel" />
+            <Button label="Apply" @click="handleApply" />
+          </div>
+        </template>
+      </DatePicker>
     </div>
 
     <!-- Summary Metrics -->
@@ -36,12 +36,7 @@
 
     <!-- PrimeVue Chart -->
     <div class="w-full h-87.5">
-      <Chart
-        type="line"
-        :data="chartData"
-        :options="chartOptions"
-        class="h-full w-full"
-      />
+      <Chart type="line" :data="chartData" :options="chartOptions" class="h-full w-full" />
     </div>
 
   </div>
@@ -50,8 +45,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
-import Chart from 'primevue/chart'
-import DatePicker from 'primevue/datepicker'
 
 // Deteksi layar menggunakan VueUse
 const isMobile = useMediaQuery('(max-width: 768px)')
@@ -167,7 +160,7 @@ const chartOptions = computed<Record<string, any>>(() => ({
           family: 'Inter, sans-serif',
           weight: 500
         },
-        callback: function(val: any) {
+        callback: function (val: any) {
           // 'this' context di-handle oleh Chart.js, any digunakan untuk bypass strict TS check
           // @ts-ignore
           return this.getLabelForValue(val);

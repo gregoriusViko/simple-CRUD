@@ -22,9 +22,9 @@ const router = createRouter({
           path: '/keuangan/',
           children: [
             {
-              path: 'pemasukan',
-              name: 'pemasukan',
-              component: () => import('../features/cashflow/views/IncomeView.vue'),
+              path: 'laporan',
+              name: 'laporan-keuangan',
+              component: () => import('../features/cashflow/views/CashflowReportView.vue'),
             },
             // {
             //   path: 'pengeluaran',
@@ -38,6 +38,11 @@ const router = createRouter({
           path: '/coba',
           name: 'Coba',
           component: () => import('../features/employees/views/CobaView.vue'),
+        },
+        {
+          path: '/coba2',
+          name: 'Coba2',
+          component: () => import('../features/employees/views/Coba2View.vue'),
         },
       ],
     },
