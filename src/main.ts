@@ -50,4 +50,14 @@ app.use(PrimeVue, {
 app.use(ToastService)
 app.use(ConfirmationService)
 
-app.mount('#app')
+async function bootstrap() {
+  if (import.meta.env.DEV) {
+    const { worker } = await import('./mocks/browser')
+    await worker.start({
+      onUnhandledRequest: 'bypass', // jangan error kalau ada request yang tidak di-mock
+    })
+  }
+  app.mount('#app')
+}
+
+bootstrap()
