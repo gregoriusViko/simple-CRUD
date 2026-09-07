@@ -1,17 +1,3 @@
-// import { z } from 'zod';
-// import { zodResolver } from '@primevue/forms/resolvers/zod';
-
-// export const useValidateInput = (schema: z.ZodObject) => {
-//   type FormValues = z.infer<typeof schema>;
-
-//   const resolver = zodResolver(schema);
-
-//   const initialTouched = Object.keys(schema.shape).reduce((acc, key) => {
-//     acc[key as keyof FormValues] = false;
-//     return acc;
-//   }, {} as Record<keyof FormValues, boolean>);
-// }
-
 import { ref, computed } from 'vue';
 import { zodResolver } from '@primevue/forms/resolvers/zod';
 import type { FormSubmitEvent } from '@primevue/forms';

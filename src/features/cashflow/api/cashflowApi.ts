@@ -1,33 +1,40 @@
-import { request } from '@/services/jsonServer.api';
-import { CashflowReportResponseSchema, type CashflowReportResponse } from '../schemas/cashflow.schema';
-import type { CashflowPeriodFilter } from '../types/cashflow.types'
+import { request } from '@/services/jsonServer.api'
+import {
+  CashflowSummaryResponseSchema,
+  TransactionListResponseSchema,
+  type CashflowSummaryResponse,
+  type TransactionListResponse,
+} from '../schemas/cashflow.schema'
+import type { CashflowPeriodFilter, TransactionQueryParams } from '../types/cashflow.types'
 
-export interface TransactionQueryParams extends Partial<CashflowPeriodFilter> {
-  type?: "INCOME" | "EXPENSE"
-}
+function buildQueryParams(params?: object): string {
+  if (!params) return '';
 
-async function fetchAndValidate(endpoint: string): Promise <CashflowReportResponse> {
-  const response = await request(endpoint);
-  return CashflowReportResponseSchema.parse(response)
+  const urlParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      urlParams.append(key, String(value));
+    }
+  });
+
+  const queryString = urlParams.toString();
+  return queryString ? `?${queryString}` : '';
 }
 
 export const cashflowApi = {
-  async getAllData() : Promise<CashflowReportResponse> {
-    return fetchAndValidate('/cashflows');
+  async getTransactions(params?: TransactionQueryParams): Promise<TransactionListResponse> {
+    const queryString = buildQueryParams(params)  // ✅ tidak perlu cast
+    const url = `/cashflow/transactions${queryString}`
+
+    const response = await request(url)
+    return TransactionListResponseSchema.parse(response)
   },
 
-  async getTransactions(params?: TransactionQueryParams): Promise<CashflowReportResponse>{
-    const urlParams = new URLSearchParams()
+  async getSummary(params?: CashflowPeriodFilter): Promise<CashflowSummaryResponse> {
+    const queryString = buildQueryParams(params)  // ✅ tidak perlu cast
+    const url = `/cashflow/summary${queryString}`
 
-    if(params?.startDate) urlParams.append('startDate', params.startDate);
-    if(params?.endDate) urlParams.append('endDate', params.endDate);
-    if(params?.type) urlParams.append('type', params.type);
-
-    const queryString = urlParams.toString()
-    const endpoint =queryString
-    ? `/cashflows/transactions?${queryString}`
-    : 'cashflows/transactions';
-
-    return fetchAndValidate(endpoint);
-  }
+    const response = await request(url)
+    return CashflowSummaryResponseSchema.parse(response)
+  },
 }

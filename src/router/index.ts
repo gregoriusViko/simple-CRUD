@@ -22,15 +22,20 @@ const router = createRouter({
           path: '/keuangan/',
           children: [
             {
-              path: 'laporan',
-              name: 'laporan-keuangan',
-              component: () => import('../features/cashflow/views/CashflowReportView.vue'),
+              path: 'pemasukan',
+              name: 'pemasukan',
+              component: () => import('../features/cashflow/views/IncomeView.vue'),
             },
             // {
             //   path: 'pengeluaran',
             //   name: 'pengeluaran',
             //   component: () => import('../features/cashflow/views/ExpenseView.vue'),
             // },
+            {
+              path: 'laporan',
+              name: 'laporan',
+              component: () => import ('../features/cashflow/views/CashflowReportView.vue')
+            },
           ],
         },
 

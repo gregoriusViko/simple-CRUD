@@ -1,6 +1,6 @@
 import { ofetch } from 'ofetch'
 
-const API_URL = 'http://localhost:3000'
+const API_URL = 'http://localhost:3000/api'
 
 export const request = ofetch.create({
   baseURL: API_URL,

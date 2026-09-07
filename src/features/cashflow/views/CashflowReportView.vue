@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useCashflow } from '@/features/cashflow/composables/useCashflow';
-import { DateRangeSchema } from '../schemas/dateRange'
 
-const { filter, data, isLoading, error, fetchCashflow, resetToBefore } = useCashflow();
+const { filter, transactions: data, summary, isLoading, error, fetchCashflow, resetToBefore } = useCashflow();
 
 
 const datePickerRef = ref();
 
 const handleSubmit = async () => {
-  await fetchCashflow();
+  await fetchCashflow('INCOME');
 
   if (!error.value) {
     const picker = datePickerRef.value as any; // Gunakan 'as any' untuk bypass TypeScript
@@ -158,7 +157,7 @@ const chartOptions = computed<Record<string, any>>(() => ({
 
     <!-- PrimeVue Chart -->
     <div class="w-full h-87.5">
-      <Chart type="line" :data="data?.transactions" :options="chartOptions" class="h-full w-full" />
+      <Chart type="line" :data="data?.data" :options="chartOptions" class="h-full w-full" />
     </div>
 
   </div>

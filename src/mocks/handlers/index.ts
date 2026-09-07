@@ -1,9 +1,8 @@
 import { RequestHandler } from 'msw'
-// import { usersHandlers } from './users'
-// import { productsHandlers } from './products'
+import { cashflowHandlers } from './cashflow'
 
 // Array gabungan yang bertipe RequestHandler[]
 export const handlers: RequestHandler[] = [
   // ...usersHandlers,
-  // ...productsHandlers,
+  ...cashflowHandlers,
 ]
