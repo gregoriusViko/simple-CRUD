@@ -1,0 +1,21 @@
+/* Menentukan ukuran kertas dan margin */
+@page {
+  size: A4;
+  margin: 20mm;
+
+  /* Menambahkan nomor halaman di kanan bawah */
+  @bottom-right {
+    content: "Halaman " counter(page);
+  }
+}
+
+/* Kelas untuk memaksa elemen pindah ke halaman baru */
+.page-break {
+  break-before: page;
+}
+
+/* Mempercantik font khusus untuk hasil cetak */
+.print-document {
+  font-family: Arial, sans-serif;
+  color: #333;
+}

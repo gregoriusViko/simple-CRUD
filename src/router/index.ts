@@ -49,6 +49,16 @@ const router = createRouter({
           name: 'Coba2',
           component: () => import('../features/employees/views/Coba2View.vue'),
         },
+        {
+          path: '/coba3',
+          name: 'Coba3',
+          component: () => import('../features/employees/views/Coba3View.vue'),
+        },
+        {
+          path: '/invoice',
+          name: 'invoice',
+          component: () => import('../features/employees/views/InvoicePage.vue'),
+        },
       ],
     },
   ],
