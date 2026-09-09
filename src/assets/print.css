@@ -1,21 +1,96 @@
-/* Menentukan ukuran kertas dan margin */
-@page {
-  size: A4;
-  margin: 20mm;
+/* src/assets/book.css */
 
-  /* Menambahkan nomor halaman di kanan bawah */
-  @bottom-right {
-    content: "Halaman " counter(page);
+@media screen {
+  body {
+    background-color: #555;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .pagedjs_page {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
   }
 }
 
-/* Kelas untuk memaksa elemen pindah ke halaman baru */
-.page-break {
+body {
+  font-family: 'Georgia', serif;
+  color: #222;
+}
+
+@page {
+  size: A5;
+  margin: 20mm 20mm 25mm 20mm;
+
+  @bottom-right {
+    content: counter(page);
+    font-family: sans-serif;
+    font-size: 9pt;
+    color: #666;
+  }
+
+  @bottom-left {
+    content: "Judul Buku Anda di Sini";
+    font-family: sans-serif;
+    font-size: 8pt;
+    color: #888;
+    font-style: italic;
+  }
+
+  @top-center {
+    content: string(chapter-title);
+    font-family: sans-serif;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+  }
+}
+
+@page cover {
+  margin: 0;
+}
+
+@page cover {
+  @bottom-right { content: none; }
+  @bottom-left { content: none; }
+  @top-center { content: none; }
+}
+
+.cover-page {
+  page: cover;
+  break-after: page;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #f4f4f4;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+h1 {
+  string-set: chapter-title content();
+  font-size: 24pt;
+  text-align: center;
+  margin-top: 40mm;
+  margin-bottom: 20mm;
   break-before: page;
 }
 
-/* Mempercantik font khusus untuk hasil cetak */
-.print-document {
-  font-family: Arial, sans-serif;
-  color: #333;
+h2 {
+  font-size: 14pt;
+  margin-top: 15mm;
+  margin-bottom: 5mm;
+}
+
+p {
+  font-size: 11pt;
+  line-height: 1.6;
+  text-align: justify;
+  text-indent: 1.5em;
+  margin: 0 0 10px 0;
 }

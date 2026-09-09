@@ -34,7 +34,7 @@ const router = createRouter({
             {
               path: 'laporan',
               name: 'laporan',
-              component: () => import ('../features/cashflow/views/CashflowReportView.vue')
+              component: () => import('../features/cashflow/views/CashflowReportView.vue'),
             },
           ],
         },
@@ -54,12 +54,12 @@ const router = createRouter({
           name: 'Coba3',
           component: () => import('../features/employees/views/Coba3View.vue'),
         },
-        {
-          path: '/invoice',
-          name: 'invoice',
-          component: () => import('../features/employees/views/InvoicePage.vue'),
-        },
       ],
+    },
+    {
+      path: '/invoice',
+      name: 'invoice',
+      component: () => import('../features/employees/views/InvoicePage.vue'),
     },
   ],
 })
