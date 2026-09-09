@@ -43,7 +43,9 @@ onUnmounted(() => {
   <div id="book-content" style="display: none;">
     <!-- ================= HALAMAN SAMPUL (COVER) ================= -->
     <div class="cover-page">
-      <h1 style="margin:0; font-size: 28pt; break-before: auto;">JUDUL BUKU UTAMA</h1>
+      <h1 style="margin:0; font-size: 28pt; break-before: auto; string-set: none;">
+        JUDUL BUKU UTAMA
+      </h1>
       <p style="text-indent:0; font-style: italic; margin-top: 10px; font-size: 12pt;">Sub-judul atau Penjelasan Singkat
         Buku Ini</p>
       <div style="margin-top: 60mm; font-family: sans-serif; font-size: 11pt;">

@@ -1,27 +1,19 @@
 /* src/assets/book.css */
 
-@media screen {
-  body {
-    background-color: #555;
-    margin: 0;
-    padding: 20px;
-  }
-
-  .pagedjs_page {
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    margin: 20px auto;
-  }
-}
-
 body {
   font-family: 'Georgia', serif;
   color: #222;
 }
 
+.pagedjs_page {
+  background: white;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 @page {
   size: A5;
-  margin: 20mm 20mm 25mm 20mm;
+  margin: 15mm 20mm 18mm 20mm; /* atas dan bawah dikurangi */
 
   @bottom-right {
     content: counter(page);
@@ -31,7 +23,7 @@ body {
   }
 
   @bottom-left {
-    content: "Judul Buku Anda di Sini";
+    content: 'Judul Buku Anda di Sini';
     font-family: sans-serif;
     font-size: 8pt;
     color: #888;
@@ -50,12 +42,15 @@ body {
 
 @page cover {
   margin: 0;
-}
-
-@page cover {
-  @bottom-right { content: none; }
-  @bottom-left { content: none; }
-  @top-center { content: none; }
+  @bottom-right {
+    content: none;
+  }
+  @bottom-left {
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
 }
 
 .cover-page {
@@ -73,11 +68,16 @@ body {
 }
 
 h1 {
-  string-set: chapter-title content();
+  string-set: chapter-title content(text);
   font-size: 24pt;
   text-align: center;
-  margin-top: 40mm;
+  margin-top: 10mm; /* atau bahkan 0 */
   margin-bottom: 20mm;
+  /* break-before: page; */
+}
+
+/* Break hanya untuk h1 bab, bukan yang di dalam cover */
+div:not(.cover-page) > h1 {
   break-before: page;
 }
 
@@ -93,4 +93,11 @@ p {
   text-align: justify;
   text-indent: 1.5em;
   margin: 0 0 10px 0;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
