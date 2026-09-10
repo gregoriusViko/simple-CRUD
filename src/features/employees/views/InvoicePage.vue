@@ -88,3 +88,11 @@ onUnmounted(() => {
 
   <div id="paged-output"></div>
 </template>
+
+<style>
+#paged-output {
+  background: #444;
+  padding: 20px;
+}
+
+</style>
