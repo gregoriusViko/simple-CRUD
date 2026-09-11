@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useExportExcel } from '@/shared/composables/useExportExcel';
 import type { Column } from 'exceljs';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useMediaQuery } from '@vueuse/core'
 
 // Deteksi layar dengan lebar maksimal 640px (ukuran standar sm pada Tailwind)
@@ -29,6 +29,12 @@ const props = withDefaults(defineProps<{
 });
 
 const selectedColumns = ref<Partial<Column>[]>([...props.columns]);
+
+const usingColumns = computed(() =>
+  props.columns.filter((column) =>
+    selectedColumns.value.some((selected) => selected.key === column.key)
+  )
+)
 
 </script>
 
@@ -76,7 +82,7 @@ const selectedColumns = ref<Partial<Column>[]>([...props.columns]);
           <DataTable :value="data" :paginator="true" :rows="5" responsiveLayout="scroll" size="small"
             :pageLinkSize="isMobile ? 3 : 5" class="w-full text-sm"
             >
-            <Column v-for="column of selectedColumns" :key="column.key" :field="String(column.key)"
+            <Column v-for="column of usingColumns" :key="column.key" :field="String(column.key)"
               :header="Array.isArray(column.header) ? column.header.join(' / ') : (column.header as string)"
               class="whitespace-nowrap" />
           </DataTable>
@@ -98,7 +104,7 @@ const selectedColumns = ref<Partial<Column>[]>([...props.columns]);
       <div class="flex flex-row justify-end gap-3 pt-4 border-t border-slate-100">
         <Button label="Batal" icon="pi pi-times" severity="secondary" text @click="visible = false" class="w-auto" />
         <Button label="Unduh Excel" icon="pi pi-download" severity="success" :loading="isExporting"
-          :disabled="!selectedColumns.length" @click="exportToExcel(data, fileName, selectedColumns)"
+          :disabled="!selectedColumns.length" @click="exportToExcel(data, fileName, usingColumns)"
           class="w-auto whitespace-nowrap" />
       </div>
     </template>
